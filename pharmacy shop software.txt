@@ -5,8 +5,8 @@ Tasks to be performed
 1. add medicines
 2. search medicine by sku no/name and / or update medicine details
 3. delete medicine 
-4. process an order
-5. get total stock of medicines
+4. process an order and suitably deduct the stock of the respective medicines
+5. get total stock of medicines in stock 
 
 '''
 
