@@ -1,4 +1,4 @@
-# a better logic for the same program of salary system is in this code:
+# a better/different logic for the same program of salary system is in this code:
 # https://github.com/AnmolDixitB13/R/blob/main/salary%20system%20in%20R.txt
 
 """
@@ -22,7 +22,7 @@ I have achived this using a function leap() and dictionary days. When a month is
 suitably from the dictionary. If feb is entered as month, the function will analyze whether that year was leap or not and accordingly, the program will fetch no. of days from the dictionary suitably.
 """
 
-# a better logic for the same program of salary system is in this code:
+# a better/different logic for the same program of salary system is in this code:
 # https://github.com/AnmolDixitB13/R/blob/main/salary%20system%20in%20R.txt
 
 import pandas as pd
@@ -195,5 +195,5 @@ sal_df = pd.DataFrame(sal_data, index=indexx)
 joint = pd.concat([df, sal_df])
 joint.to_csv(filepath)
 
-# a better logic for the same program of salary system is in this code:
+# a better/different logic for the same program of salary system is in this code:
 # https://github.com/AnmolDixitB13/R/blob/main/salary%20system%20in%20R.txt
