@@ -11,8 +11,6 @@ Besides this, I might also upload some python programs which aren't any project,
 
 My files may not be that useful to experienced people/laterals in the field of software development, but I anticipate beginners will definitely get help/new ideas from my files as how to go about in their projects.
 
-I will soon make a repositories containing my previous projects in C & Java, as and when I get time.
-
 An advise to programmers, especially if you are beginner in the field of programming or a STEM student or related to softwaring - The advice is that when ever you go through a code/program especially a program that is someone's project/mini project, other than just taking a mere reference for your homework/assignments, you should think and analyze these few things also:
 
     i. How can this program/mini project can be made better in terms of user's ease of handling, memory consumption, representing O/P in a way wherein the user can understand it better, etc
