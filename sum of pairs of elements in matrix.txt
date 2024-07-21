@@ -48,4 +48,5 @@ for i in range(0, n_row):
                 else:
                     if mat[i][j] + mat[k][l] == 11:
                         print(mat[i][j], " & ", mat[k][l])
-                
+
+# this code works well
