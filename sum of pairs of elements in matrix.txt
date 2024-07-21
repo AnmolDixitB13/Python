@@ -26,6 +26,7 @@ for i in range(0, n_row):
 # this code works well but produces repetitive results
 ________________________________________________________________________________________________________
 
+# this code works well
 
 mat = [[1, 3, 2, 4],
                      [5, 8, 7, 6],
@@ -49,4 +50,4 @@ for i in range(0, n_row):
                     if mat[i][j] + mat[k][l] == 11:
                         print(mat[i][j], " & ", mat[k][l])
 
-# this code works well
+
