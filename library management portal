@@ -1051,6 +1051,10 @@ if __name__ == "__main__":
 
 
 """
+Dictionary has been used for 2 reasons:
+1. to ensure that the data is well organized.
+2. to ensure like/related details are kept together.
+
 Future scope/improvements:
 
 1. The need of file handling: once the program is stopped/exited, the data in the
