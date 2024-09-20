@@ -1,3 +1,4 @@
+# library management portal using list within dictionaries
 
 """
 A library program to do the following tasks:
@@ -30,10 +31,7 @@ per day for 1st 10 days, 2 Rupee fine per day for next 10 days and after that 5 
 
 """
 
-# library management portal using list within dictionaries
-
 from datetime import datetime
-
 
 class Methods:
     # m = Methods()
