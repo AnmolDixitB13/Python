@@ -28,10 +28,13 @@ per day for 1st 10 days, 2 Rupee fine per day for next 10 days and after that 5 
 
 """
 
+# library management portal using list within dictionaries
+
 from datetime import datetime
 
 
 class Methods:
+    # m = Methods()
 
     dict_book_details = {
         'book_isbn': [],
@@ -55,7 +58,6 @@ class Methods:
         'book_issue_date': []
     }
 
-
     def addMember(self):
         temp_member_name = ""
         temp_member_id = ""
@@ -77,14 +79,16 @@ class Methods:
                     break
 
             while 1:
-                temp_member_id = input(f"Enter the unique member ID of the new member {temp_member_name}:\t")
+                temp_member_id = input(f"Enter the unique member ID of the new member {temp_member_name} [alphanumeric id allowed]:\t")
 
                 if temp_member_id.strip() in Methods.dict_member_details['m_id']:
-                    print(f"The entered member ID is not unique. It is present in the records. Re enter a different member ID for the new member {temp_member_name}")
+                    print(
+                        f"The entered member ID is not unique. It is present in the records. Re enter a different member ID for the new member {temp_member_name}")
                     continue
 
                 elif len(temp_member_id.strip()) == 0:
-                    print(f"Member ID can't be empty. Re enter the appropriate member ID for the new member {temp_member_name}.")
+                    print(
+                        f"Member ID can't be empty. Re enter the appropriate member ID for the new member {temp_member_name}.")
                     continue
 
                 else:
@@ -99,10 +103,13 @@ class Methods:
         except ValueError as v:
             print("Some problem occurred with the input...")
             print(v)
+            print("Last parametre was possibly couldn't be added because of the above mentioned problem. You may add it using the update feature or delete the record and then re - enter the record with the correct credentials.")
 
         except TypeError as t:
             print("Some problem occurred with the input...")
             print(t)
+            print("Last parametre was possibly couldn't be added because of the above mentioned problem. You may add it using the update feature or delete the record and then re - enter the record with the correct credentials.")
+
     ####
 
     def addBook(self):
@@ -129,7 +136,6 @@ class Methods:
                 else:
                     Methods.dict_book_details['book_isbn'].append(temp_book_isbn.strip())
                     break
-
 
             while 1:
                 temp_book_name = input(f"Enter the title of the book with the isbn {temp_book_isbn}:\t")
@@ -170,10 +176,13 @@ class Methods:
         except ValueError as v:
             print("Some problem occurred with the input...")
             print(v)
+            print("Last parametre was possibly couldn't be added because of the above mentioned problem. You may add it using the update feature or delete the record and then re - enter the record with the correct credentials.")
 
         except TypeError as t:
             print("Some problem occurred with the input...")
             print(t)
+            print("Last parametre was possibly couldn't be added because of the above mentioned problem. You may add it using the update feature or delete the record and then re - enter the record with the correct credentials.")
+
     ####
 
     def removeBook(self):
@@ -193,7 +202,8 @@ class Methods:
                 Methods.dict_book_details['author_name'].pop(ind)
                 Methods.dict_book_details['book_qty'].pop(ind)
 
-                print(f"Book with book isbn {temp_book_id} & title {temp_name} has been successfully removed from the library list.")
+                print(
+                    f"Book with book isbn {temp_book_id} & title {temp_name} has been successfully removed from the library list.")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -206,6 +216,7 @@ class Methods:
         except IndexError as ie:
             print("Some problem occurred...")
             print(ie)
+
     ####
 
     def lendBook(self):
@@ -218,21 +229,23 @@ class Methods:
         ind = 0
         temp_date = ""
 
-
         try:
             temp_id = input("Enter the member id of the library member:\t")
 
             if temp_id not in Methods.dict_member_details['m_id']:
-                print(f"The person with the member id {temp_id} is not yet registered in the library as a library member.")
+                print(
+                    f"The person with the member id {temp_id} is not yet registered in the library as a library member.")
 
             ind = Methods.dict_member_details['m_id'].index(temp_id)
             if Methods.dict_member_details['books_already_borrowed'][ind] >= 3:
-                print("The library member has already been issued 3 books. A library member can borrow & retain atmost 3 books at a time.")
+                print(
+                    "The library member has already been issued 3 books. A library member can borrow & retain atmost 3 books at a time.")
 
             else:
                 print(f"Library member with id {temp_id} can be issued a book.")
 
-                temp_date = input("Enter book issue date in the format yyyy-mm-dd format, along with the same delimetre (hyphen):\t")
+                temp_date = input(
+                    "Enter book issue date in the format yyyy-mm-dd format, along with the same delimetre (hyphen):\t")
                 act_date = datetime.strptime(temp_date, "%Y-%m-%d").date()
 
                 temp_b_id = input("Enter the book id which has to be issued:\t")
@@ -275,7 +288,160 @@ class Methods:
         except IndexError as ie:
             print("Some problem occurred...")
             print(ie)
+
     ####
+
+    def extendBook(self):
+        n = 0
+        try:
+            temp_b_id = input("Enter the book isbn of the book whose issue period has to be extended:\t")
+            temp_m_id = input("Enter the member id to whom the book has been issued:\t")
+
+            if len(temp_b_id) == 0:
+                print("Book id can't be empty.")
+
+            if len(temp_m_id) == 0:
+                print("Member id can't be empty.")
+
+            elif temp_b_id not in Methods.dict_book_details['book_isbn']:
+                print(f"Book id mismatch... There is no book with this book id {temp_b_id}.")
+
+            n = len(Methods.dict_lend_return['book_isbn'])
+            for i in range(n):
+
+                if Methods.dict_lend_return['m_id'][i] == temp_m_id and Methods.dict_lend_return['book_isbn'][i] == temp_b_id:
+
+                    print("Record found.")
+                    temp_lend_date = Methods.dict_lend_return['book_issue_date'][i]
+                    Methods.dict_lend_return['book_issue_date'][i] = datetime.now().date()
+
+                    date_diff = datetime.now().date() - temp_lend_date
+                    days = date_diff.days
+                    delay_in_returning_book = days - 15
+                    if days >= 16:
+                        if delay_in_returning_book in range(11):
+                            print(f"Delay of {delay_in_returning_book} days in returning book.")
+                            print("A fine of 1 Rupees per day will be charged.")
+                            print(f"Total fine on this book is {(delay_in_returning_book) * 1} Rupees.")
+                            print("\n")
+                            while 1:
+                                print("Press:")
+                                print("1. to pay fine now itself")
+                                print("2. to add this fine in your pending fine records")
+                                try:
+                                    ans = int(input("Enter the task"))
+
+                                    if ans == 1:
+                                        print("Fine received.")
+                                        break
+
+                                    elif ans == 2:
+                                        fine = delay_in_returning_book * 1
+                                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                                        Methods.dict_member_details['pending_fine'][ind] += fine
+                                        print(f"Fine of Rupees {fine} added to the member's pending fine record")
+                                        break
+
+                                    else:
+                                        print("Invalid option entered.")
+                                        continue
+
+                                except ValueError as v:
+                                    print("Some problem occurred...")
+                                    print(v)
+
+                                except TypeError as t:
+                                    print("Some problem occurred...")
+                                    print(t)
+
+                        elif delay_in_returning_book in range(11, 21):
+                            print(f"Delay of {delay_in_returning_book} days in returning book.")
+                            fine = 10 + ((delay_in_returning_book - 10) * 2)
+                            print(
+                                "A fine of 2 Rupees per day will be charged from 11th day to the last day, for 1st 10 days, it is Rupees 1.")
+                            print(f"Total fine on this book is {fine} Rupees.")
+                            print("\n")
+                            while 1:
+                                print("Press:")
+                                print("1. to pay fine now itself")
+                                print("2. to add this fine in your pending fine records")
+                                try:
+                                    ans = int(input("Enter the task"))
+
+                                    if ans == 1:
+                                        print("Fine received.")
+                                        break
+
+                                    elif ans == 2:
+                                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                                        Methods.dict_member_details['pending_fine'][ind] += fine
+                                        print(f"Fine of Rupees {fine} added to the member's pending fine record")
+                                        break
+
+                                    else:
+                                        print("Invalid option entered.")
+                                        continue
+
+                                except ValueError as v:
+                                    print("Some problem occurred...")
+                                    print(v)
+
+                                except TypeError as t:
+                                    print("Some problem occurred...")
+                                    print(t)
+
+                        elif delay_in_returning_book >= 21:
+                            print(f"Delay of {delay_in_returning_book} days in returning book.")
+                            fine = 10 + 20 + ((delay_in_returning_book - 20) * 5)
+                            print(
+                                "A fine of 5 will be charged after 20 days, 1 rupee for 1st 10 days and 2 rupees for 11th - 20th days, per day will be charged.")
+                            print(f"Total fine on this book is {fine} Rupees.")
+                            print("\n")
+                            while 1:
+                                print("Press:")
+                                print("1. to pay fine now itself")
+                                print("2. to add this fine in your pending fine records")
+                                try:
+                                    ans = int(input("Enter the task"))
+
+                                    if ans == 1:
+                                        print("Fine received.")
+                                        break
+
+                                    elif ans == 2:
+                                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                                        Methods.dict_member_details['pending_fine'][ind] += fine
+                                        print(f"Fine of Rupees {fine} added to the member's pending fine record")
+                                        break
+
+                                    else:
+                                        print("Invalid option entered.")
+                                        continue
+
+                                except ValueError as v:
+                                    print("Some problem occurred...")
+                                    print(v)
+
+                                except TypeError as t:
+                                    print("Some problem occurred...")
+                                    print(t)
+
+                    else:
+                        print("No fine on this book.")
+
+                    print("Book has been successfully re - issued to the library member.")
+
+        except ValueError as v:
+            print("Some problem occurred...")
+            print(v)
+
+        except TypeError as t:
+            print("Some problem occurred...")
+            print(t)
+
+        except IndexError as ie:
+            print("Some problem occurred...")
+            print(ie)
 
     def returnBook(self):
         # enter book id of the book to be returned, check was it lended ? if yes,
@@ -295,141 +461,147 @@ class Methods:
             if len(temp_b_id) == 0:
                 print("Book id can't be empty.")
 
-            if len(temp_m_id) == 0:
+            elif len(temp_m_id) == 0:
                 print("Member id can't be empty.")
 
             elif temp_b_id not in Methods.dict_book_details['book_isbn']:
                 print(f"Book id mismatch... There is no book with this book id {temp_b_id}.")
 
-            for i in range(len(Methods.dict_lend_return['book_isbn'])):
+            elif temp_m_id not in Methods.dict_member_details['m_id']:
+                print(f"Member id mismatch... There is no registered member with this member id {temp_m_id}.")
 
-                if Methods.dict_lend_return['m_id'][i] == temp_m_id and Methods.dict_lend_return['book_isbn'][i] == temp_b_id:
-                    # ind = Methods.dict_lend_return['book_isbn'].index(temp_b_id)
-                    Methods.dict_lend_return['book_isbn'].pop(i)
-                    b_name = Methods.dict_lend_return['book_name'].pop(i)
-                    temp_m_id = Methods.dict_lend_return['m_id'].pop(i)
-                    Methods.dict_lend_return['m_name'].pop(ind)
-                    temp_lend_date = Methods.dict_lend_return['book_issue_date'].pop(i)
+            else:
+                for i in range(len(Methods.dict_lend_return['book_isbn'])):
 
-                    ind = Methods.dict_book_details['book_name'].index(b_name)
-                    Methods.dict_book_details['book_qty'][ind] += 1
+                    if Methods.dict_lend_return['m_id'][i] == temp_m_id and Methods.dict_lend_return['book_isbn'][i] == temp_b_id:
+                        # ind = Methods.dict_lend_return['book_isbn'].index(temp_b_id)
+                        Methods.dict_lend_return['book_isbn'].pop(i)
+                        b_name = Methods.dict_lend_return['book_name'].pop(i)
+                        temp_m_id = Methods.dict_lend_return['m_id'].pop(i)
+                        Methods.dict_lend_return['m_name'].pop(ind)
+                        temp_lend_date = Methods.dict_lend_return['book_issue_date'].pop(i)
 
-                    ind = Methods.dict_member_details['m_id'].index(temp_m_id)
-                    Methods.dict_member_details['books_already_borrowed'][ind] -= 1
+                        ind = Methods.dict_book_details['book_name'].index(b_name)
+                        Methods.dict_book_details['book_qty'][ind] += 1
 
-                    date_diff = datetime.now().date() - temp_lend_date
-                    days = date_diff.days
-                    delay_in_returning_book = days - 15
-                    if days >= 16:
-                        if delay_in_returning_book in range(11):
-                            print(f"Delay of {delay_in_returning_book} days in returning book.")
-                            print("A fine of 1 Rupees per day will be charged.")
-                            print(f"Total fine on this book is {(delay_in_returning_book)*1} Rupees.")
-                            print("\n")
-                            while 1:
-                                print("Press:")
-                                print("1. to pay fine now itself")
-                                print("2. to add this fine in your pending fine records")
-                                try:
-                                    ans = int(input("Enter the task"))
+                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                        Methods.dict_member_details['books_already_borrowed'][ind] -= 1
 
-                                    if ans == 1:
-                                        print("Fine received.")
-                                        break
+                        date_diff = datetime.now().date() - temp_lend_date
+                        days = date_diff.days
+                        delay_in_returning_book = days - 15
+                        if days >= 16:
+                            if delay_in_returning_book in range(11):
+                                print(f"Delay of {delay_in_returning_book} days in returning book.")
+                                print("A fine of 1 Rupees per day will be charged.")
+                                print(f"Total fine on this book is {(delay_in_returning_book) * 1} Rupees.")
+                                print("\n")
+                                while 1:
+                                    print("Press:")
+                                    print("1. to pay fine now itself")
+                                    print("2. to add this fine in your pending fine records")
+                                    try:
+                                        ans = int(input("Enter the task"))
 
-                                    elif ans == 2:
-                                        fine = delay_in_returning_book*1
-                                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
-                                        Methods.dict_member_details['pending_fine'][ind] = fine
-                                        print(f"Fine of Rupees {fine} added to the member's pending fine record")
-                                        break
+                                        if ans == 1:
+                                            print("Fine received.")
+                                            break
 
-                                    else:
-                                        print("Invalid option entered.")
-                                        continue
+                                        elif ans == 2:
+                                            fine = delay_in_returning_book * 1
+                                            ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                                            Methods.dict_member_details['pending_fine'][ind] += fine
+                                            print(f"Fine of Rupees {fine} added to the member's pending fine record")
+                                            break
 
-                                except ValueError as v:
-                                    print("Some problem occurred...")
-                                    print(v)
+                                        else:
+                                            print("Invalid option entered.")
+                                            continue
 
-                                except TypeError as t:
-                                    print("Some problem occurred...")
-                                    print(t)
+                                    except ValueError as v:
+                                        print("Some problem occurred...")
+                                        print(v)
 
-                        elif delay_in_returning_book in range(11, 21):
-                            print(f"Delay of {delay_in_returning_book} days in returning book.")
-                            fine = 10 + ((delay_in_returning_book - 10) * 2)
-                            print("A fine of 2 Rupees per day will be charged from 11th day to the last day, for 1st 10 days, it is Rupees 1.")
-                            print(f"Total fine on this book is {fine} Rupees.")
-                            print("\n")
-                            while 1:
-                                print("Press:")
-                                print("1. to pay fine now itself")
-                                print("2. to add this fine in your pending fine records")
-                                try:
-                                    ans = int(input("Enter the task"))
+                                    except TypeError as t:
+                                        print("Some problem occurred...")
+                                        print(t)
 
-                                    if ans == 1:
-                                        print("Fine received.")
-                                        break
+                            elif delay_in_returning_book in range(11, 21):
+                                print(f"Delay of {delay_in_returning_book} days in returning book.")
+                                fine = 10 + ((delay_in_returning_book - 10) * 2)
+                                print(
+                                    "A fine of 2 Rupees per day will be charged from 11th day to the last day, for 1st 10 days, it is Rupees 1.")
+                                print(f"Total fine on this book is {fine} Rupees.")
+                                print("\n")
+                                while 1:
+                                    print("Press:")
+                                    print("1. to pay fine now itself")
+                                    print("2. to add this fine in your pending fine records")
+                                    try:
+                                        ans = int(input("Enter the task"))
 
-                                    elif ans == 2:
-                                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
-                                        Methods.dict_member_details['pending_fine'][ind] = fine
-                                        print(f"Fine of Rupees {fine} added to the member's pending fine record")
-                                        break
+                                        if ans == 1:
+                                            print("Fine received.")
+                                            break
 
-                                    else:
-                                        print("Invalid option entered.")
-                                        continue
+                                        elif ans == 2:
+                                            ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                                            Methods.dict_member_details['pending_fine'][ind] += fine
+                                            print(f"Fine of Rupees {fine} added to the member's pending fine record")
+                                            break
 
-                                except ValueError as v:
-                                    print("Some problem occurred...")
-                                    print(v)
+                                        else:
+                                            print("Invalid option entered.")
+                                            continue
 
-                                except TypeError as t:
-                                    print("Some problem occurred...")
-                                    print(t)
+                                    except ValueError as v:
+                                        print("Some problem occurred...")
+                                        print(v)
 
-                        elif delay_in_returning_book >= 21:
-                            print(f"Delay of {delay_in_returning_book} days in returning book.")
-                            fine = 10 + 20 + ((delay_in_returning_book - 20) * 5)
-                            print("A fine of 5 will be charged after 20 days, 1 rupee for 1st 10 days and 2 rupees for 11th - 20th days, per day will be charged.")
-                            print(f"Total fine on this book is {fine} Rupees.")
-                            print("\n")
-                            while 1:
-                                print("Press:")
-                                print("1. to pay fine now itself")
-                                print("2. to add this fine in your pending fine records")
-                                try:
-                                    ans = int(input("Enter the task"))
+                                    except TypeError as t:
+                                        print("Some problem occurred...")
+                                        print(t)
 
-                                    if ans == 1:
-                                        print("Fine received.")
-                                        break
+                            elif delay_in_returning_book >= 21:
+                                print(f"Delay of {delay_in_returning_book} days in returning book.")
+                                fine = 10 + 20 + ((delay_in_returning_book - 20) * 5)
+                                print(
+                                    "A fine of 5 will be charged after 20 days, 1 rupee for 1st 10 days and 2 rupees for 11th - 20th days, per day will be charged.")
+                                print(f"Total fine on this book is {fine} Rupees.")
+                                print("\n")
+                                while 1:
+                                    print("Press:")
+                                    print("1. to pay fine now itself")
+                                    print("2. to add this fine in your pending fine records")
+                                    try:
+                                        ans = int(input("Enter the task"))
 
-                                    elif ans == 2:
-                                        ind = Methods.dict_member_details['m_id'].index(temp_m_id)
-                                        Methods.dict_member_details['pending_fine'][ind] = fine
-                                        print(f"Fine of Rupees {fine} added to the member's pending fine record")
-                                        break
+                                        if ans == 1:
+                                            print("Fine received.")
+                                            break
 
-                                    else:
-                                        print("Invalid option entered.")
-                                        continue
+                                        elif ans == 2:
+                                            ind = Methods.dict_member_details['m_id'].index(temp_m_id)
+                                            Methods.dict_member_details['pending_fine'][ind] += fine
+                                            print(f"Fine of Rupees {fine} added to the member's pending fine record")
+                                            break
 
-                                except ValueError as v:
-                                    print("Some problem occurred...")
-                                    print(v)
+                                        else:
+                                            print("Invalid option entered.")
+                                            continue
 
-                                except TypeError as t:
-                                    print("Some problem occurred...")
-                                    print(t)
+                                    except ValueError as v:
+                                        print("Some problem occurred...")
+                                        print(v)
 
-                    else:
-                        print("No fine on this book.")
+                                    except TypeError as t:
+                                        print("Some problem occurred...")
+                                        print(t)
 
-                    print("Book has been successfully returned back to library.")
+                        else:
+                            print("No fine on this book.")
+
+                        print("Book has been successfully returned back to library.")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -442,6 +614,7 @@ class Methods:
         except IndexError as ie:
             print("Some problem occurred...")
             print(ie)
+
     ####
 
     def booksAvailableForLending(self):
@@ -454,7 +627,8 @@ class Methods:
                 print("Book name\tAuthor name\tNo.of copies available for issuing")
                 for i in range(len(Methods.dict_book_details['book_name'])):
                     if Methods.dict_book_details['book_qty'][i] != 0:
-                        print(f"{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
+                        print(
+                            f"{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -502,28 +676,25 @@ class Methods:
         except IndexError as ie:
             print("Some problem occurred...")
             print(ie)
+
     ####
 
-    #__________________________________________________
+    # __________________________________________________
 
     def listOfBooksIssued(self):
-        print("Here is the list of all the library books that have been issued or the ones that are currently with the library members.\n")
-
-        temp_author_name = ""
-        temp_book_name = ""
-        ind = 0
-        temp_book_id = ""
 
         try:
-            if len(Methods.dict_lend_return['book_isbn']) == 0:
+            n = len(Methods.dict_lend_return['book_isbn'])
+
+            if n == 0:
                 print("As of now, no book(s) have been issued to any of the library member(s).")
 
             else:
-                print("Book ID\tBook Name\tAuthor name\n")
+                print("\nHere is the list of all the library books that have been issued or the ones that are currently with the library members.\n")
+                print(f"\nIn all, {n} records were found.\n")
+                print("Issue Date\tMember ID\tMember Name\tBook ID\tBook Name\n")
                 for i in range(len(Methods.dict_lend_return['book_isbn'])):
-
-                    print(f"{temp_book_id}\t{temp_book_name}\t{temp_author_name}")
-                    print(f"{Methods.dict_lend_return['book_isbn'][i]}\t{Methods.dict_lend_return['book_name'][i]}")
+                    print(f"{Methods.dict_lend_return['book_issue_date'][i]}\t{Methods.dict_lend_return['m_id'][i]}\t{Methods.dict_lend_return['m_name'][i]}\t{Methods.dict_lend_return['book_isbn'][i]}\t{Methods.dict_lend_return['book_name'][i]}")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -547,7 +718,8 @@ class Methods:
                 print("Book ISBN\tBook name\tAuthor name\tNo. of copies in library\n")
 
                 for i in range(len(Methods.dict_book_details['book_isbn'])):
-                    print(f"{Methods.dict_book_details['book_isbn'][i]}\t{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
+                    print(
+                        f"{Methods.dict_book_details['book_isbn'][i]}\t{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -563,15 +735,17 @@ class Methods:
 
     def listOfAllLibraryMembers(self):
         try:
-            if len(Methods.dict_member_details['m_id']) == 0:
+            n = len(Methods.dict_member_details['m_id'])
+            if n == 0:
                 print("There are no registered library members as of now.")
 
             else:
                 print("Here is the list of all the registered library members.\n")
-                print("Membership ID\tMember name\tBooks borrowed\tPending fine\n")
+                print("Membership ID\tMember name\tBooks borrowed now\tPending fine\n")
 
                 for i in range(len(Methods.dict_member_details['m_id'])):
-                    print(f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['books_already_borrowed'][i]}\t{Methods.dict_member_details['pending_fine'][i]}")
+                    print(
+                        f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['books_already_borrowed'][i]}\t{Methods.dict_member_details['pending_fine'][i]}")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -587,16 +761,19 @@ class Methods:
 
     def listOfAllMembersWhoHaveTakenBook(self):
         try:
-            if len(Methods.dict_member_details['m_id']) == 0:
+            n = len(Methods.dict_member_details['m_id'])
+            if n == 0:
                 print("There are no registered members in the library members' list.")
 
             else:
-                print("Here is the list of library members who have taken/borrowed atleast 1 book from the library.\n")
+                print("\nHere is the list of library members who have taken/borrowed at least 1 book from the library.")
+                print(f"\nIn all, {n} records were found.\n")
                 print("Membership ID\tMember name\tNo of books issued to them\n")
 
-                for i in range(len(Methods.dict_member_details['m_id'])):
+                for i in range(n):
                     if Methods.dict_member_details['books_already_borrowed'][i] != 0:
-                        print(f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['books_already_borrowed'][i]}")
+                        print(
+                            f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['books_already_borrowed'][i]}")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -610,22 +787,32 @@ class Methods:
             print("Some problem occurred...")
             print(ie)
 
-
     def membersWithPendingFines(self):
 
         not_found = True
+        count = 0
+        total_pending_fine = 0
+        n = len(Methods.dict_member_details['m_id'])
 
-        if len(Methods.dict_member_details['m_id']) == 0:
+        if n == 0:
             print("There are no registered library members.")
 
         else:
             print("Member id\tMember name\tFine amount\n")
-            for i in range(len(Methods.dict_member_details['m_id'])):
-                if Methods.dict_member_details['pending_fine'] != 0:
-                    print(f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['pending_fine'][i]}")
+            for i in range(n):
+                if Methods.dict_member_details['pending_fine'][i] != 0:
+                    not_found = False
+                    count += 1
+                    total_pending_fine += Methods.dict_member_details['pending_fine'][i]
+                    print(
+                        f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['pending_fine'][i]}")
 
         if not_found:
             print("There are no library members with pending fines.")
+
+        else:
+            print(f"In all, {count} records were found.")
+            print(f"Total pending fine for the library is {total_pending_fine}.")
 
     def removeMember(self):
         # accept m_id, check whether member is registered or not
@@ -640,14 +827,16 @@ class Methods:
 
             else:
 
-                temp_m_id = input("Enter the membership id of the library member whose membership has to be cancelled/revoked ?")
+                temp_m_id = input(
+                    "Enter the membership id of the library member whose membership has to be cancelled/revoked ?")
 
                 if temp_m_id not in Methods.dict_member_details['m_id']:
                     print(f"There is no library member with this membership id {temp_m_id}.")
 
                 else:
-                    if temp_m_id in Methods.dict_lend_return['m_id']:# or Methods.dict_member_details['pending_fine']
-                        print(f"Library member {temp_m_id} has still not returned some library book(s). So, his/her account/membership can't be deleted/revoked.")
+                    if temp_m_id in Methods.dict_lend_return['m_id']:  # or Methods.dict_member_details['pending_fine']
+                        print(
+                            f"Library member {temp_m_id} has still not returned some library book(s). So, his/her account/membership can't be deleted/revoked.")
 
                     else:
                         print(
@@ -661,7 +850,8 @@ class Methods:
                         Methods.dict_member_details['books_already_borrowed'].pop(ind)
                         Methods.dict_member_details['pending_fine'].pop(ind)
 
-                        print(f"Member with member id {temp_m_id} has been successfully removed from the library membership list.")
+                        print(
+                            f"Member with member id {temp_m_id} has been successfully removed from the library membership list.")
 
         except ValueError as v:
             print("Some problem occurred...")
@@ -768,7 +958,8 @@ class Methods:
                             continue
 
                     while 1:
-                        ans = input("Update the book's quantity i.e. no. of copies present in the library ? Y/N or y/n ?\t")
+                        ans = input(
+                            "Update the book's quantity i.e. no. of copies present in the library ? Y/N or y/n ?\t")
 
                         if ans.casefold() == 'n':
                             break
@@ -777,7 +968,8 @@ class Methods:
                             new_qty = int(input("Enter the new quantity for the book:\t"))
 
                             if new_qty < 0:
-                                print("The quantity can't be negative. Enter zero if no. copies of this book are available in the library.")
+                                print(
+                                    "The quantity can't be negative. Enter zero if no. copies of this book are available in the library.")
                                 continue
 
                             else:
@@ -904,7 +1096,8 @@ class Methods:
                             new_ = float(input("Enter the new updated/adjusted fine for this library member:\t"))
 
                             if new_ < 0:
-                                print("Pending fine can't be negative. Enter zero (0) if the member is not liable for any fine or the member has cleared off all the fines he/she had.")
+                                print(
+                                    "Pending fine can't be negative. Enter zero (0) if the member is not liable for any fine or the member has cleared off all the fines he/she had.")
                                 continue
 
                             else:
@@ -930,14 +1123,15 @@ class Methods:
 
     def readAllMembers(self):
         try:
-            if len(Methods.dict_member_details['m_id']) == 0:
+            n = len(Methods.dict_member_details['m_id'])
+            if n == 0:
                 print("There are no registered members in the library members' list.")
 
             else:
                 print("Member ID\tMember name\tBooks borrowed\tPending fine\n")
-                n = len(Methods.dict_member_details['m_id'])
                 for i in range(n):
-                    print(f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['books_already_borrowed'][i]}\t{Methods.dict_member_details['pending_fine'][i]}")
+                    print(
+                        f"{Methods.dict_member_details['m_id'][i]}\t{Methods.dict_member_details['m_name'][i]}\t{Methods.dict_member_details['books_already_borrowed'][i]}\t{Methods.dict_member_details['pending_fine'][i]}")
 
                 print(f"In all, {n} records were found.")
 
@@ -970,14 +1164,17 @@ class Execution:
             print("3. to register a new member in the library")
             print("4. to borrow a book from the library")
             print("5. to return a book back to the library")
-            print("6. to get the list of all the available books in the library")
-            print("7. to get the list of books borrowed by a library member")
-            print("8. to get the list of all the books that have been borrowed by/lended to any/all of the library members")
-            print("9. to remove a member from the library membership")
-            print("10. to get the list of all the registered library members")
-            print("11. to modify/update book details")
-            print("12. to modify/update member details (including fine clearance)")
-            print("13. to exit the program")
+            print("6. to extend a book's issue period")
+            print("7. to get the list of all the available books in the library")
+            print("8. to get the list of books borrowed by a library member")
+            print(
+                "9. to get the list of all the books that have been borrowed by/lended to any/all of the library members")
+            print("10. to remove a member from the library membership")
+            print("11. to get the list of all the registered library members")
+            print("12. to modify/update book details")
+            print("13. to modify/update member details (including fine clearance)")
+            print("14. to get the list of all the members who have pending fine")
+            print("15. to exit the program")
 
             try:
                 task = int(input("Enter your task:\t"))
@@ -1006,35 +1203,42 @@ class Execution:
                 self.m.returnBook()
 
             elif task == 6:
+                self.m.extendBook()
+
+            elif task == 7:
                 # list of available books in library
                 self.m.allBooksInLibrary()
 
-            elif task == 7:
+            elif task == 8:
                 # books borrowed by a library member
                 self.m.borrowedBooksOfAMember()
 
-            elif task == 8:
+            elif task == 9:
                 # list of books borrowed by all
                 self.m.listOfAllMembersWhoHaveTakenBook()
 
-            elif task == 9:
+            elif task == 10:
                 # to remove a member from the library membership
                 self.m.removeMember()
 
-            elif task == 10:
+            elif task == 11:
                 self.m.readAllMembers()
 
-            elif task == 11:
-            # to modify book details
+            elif task == 12:
+                # to modify book details
                 self.m.updateBookDetails()
 
-            elif task == 12:
+            elif task == 13:
                 self.m.updateMemberDetails()
             # to modify member details
 
-            elif task == 13:
+            elif task == 14:
+                self.m.membersWithPendingFines()
+
+            elif task == 15:
                 # to exit the program
                 break
+
 
 class CommenceProgram:
 
