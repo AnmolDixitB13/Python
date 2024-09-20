@@ -13,7 +13,9 @@ A library program to do the following tasks:
 10. to get the list of all the registered member
 11. to update member details
 12. to update book details
-13. to exit the program
+13. to get the list of all the library members who have pending fine & the total pending fine of all
+the library members 
+14. to exit the program
 
 Constraints:
 1. When a user is being registered/new book is being registered, check the member id/book isbn respectively
