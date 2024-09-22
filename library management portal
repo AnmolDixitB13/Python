@@ -15,8 +15,10 @@ A library program to do the following tasks:
 11. to update member details
 12. to update book details
 13. to get the list of all the library members who have pending fine & the total pending fine of all
-the library members 
-14. to exit the program
+the library members
+14. to search a member by member id/name
+15. to search a book by title/name/isbn
+16. to exit the program
 
 Constraints:
 1. When a user is being registered/new book is being registered, check the member id/book isbn respectively
@@ -31,7 +33,10 @@ per day for 1st 10 days, 2 Rupee fine per day for next 10 days and after that 5 
 
 """
 
+# library management portal using list within dictionaries
+
 from datetime import datetime
+
 
 class Methods:
     # m = Methods()
@@ -1147,6 +1152,178 @@ class Methods:
             print("Some problem occurred...")
             print(ie)
 
+    def searchMemberById(self):
+        temp_m_id = ""
+        ind = 0
+
+        try:
+            temp_m_id = input("Enter the member id whose details are to be found out:\t")
+
+            if len(temp_m_id.strip()) == 0:
+                print("Member id can't be empty")
+
+            elif temp_m_id.strip() not in Methods.dict_member_details['m_id']:
+                print(f"There is no registered member with this member id {temp_m_id}.")
+
+            else:
+                ind = Methods.dict_member_details['m_id'].index(temp_m_id.strip())
+                print("Member ID\tMember name\tNo. of books borrowed\tPending fine\n")
+                print(f"{Methods.dict_member_details['m_id'][ind]}\t{Methods.dict_member_details['m_name'][ind]}\t{Methods.dict_member_details['books_already_borrowed'][ind]}\t{Methods.dict_member_details['pending_fine'][ind]}")
+
+        except ValueError as v:
+            print("Some problem occurred...")
+            print(v)
+
+        except TypeError as t:
+            print("Some problem occurred...")
+            print(t)
+
+        except IndexError as ie:
+            print("Some problem occurred...")
+            print(ie)
+
+    def searchMemberByName(self):
+        temp_m_name = ""
+        ind = 0
+
+        try:
+            temp_m_name = input("Enter the member name whose details are to be found out:\t")
+
+            if len(temp_m_name.strip()) == 0:
+                print("Member name can't be empty")
+
+            elif temp_m_name.strip() not in Methods.dict_member_details['m_name']:
+                print(f"There is no registered member with this member name {temp_m_name}.")
+
+            else:
+                ind = Methods.dict_member_details['m_name'].index(temp_m_name.strip())
+                print("Member ID\tMember name\tNo. of books borrowed\tPending fine\n")
+                print(
+                    f"{Methods.dict_member_details['m_id'][ind]}\t{Methods.dict_member_details['m_name'][ind]}\t{Methods.dict_member_details['books_already_borrowed'][ind]}\t{Methods.dict_member_details['pending_fine'][ind]}")
+
+        except ValueError as v:
+            print("Some problem occurred...")
+            print(v)
+
+        except TypeError as t:
+            print("Some problem occurred...")
+            print(t)
+
+        except IndexError as ie:
+            print("Some problem occurred...")
+            print(ie)
+
+    def searchBookByTitle(self):
+        temp_title = ""
+        count = 0
+
+        try:
+            temp_title = input("Enter the book title / word or phrase in the title / subject on which the book has to be searched:\t")
+
+            if len(temp_title.strip()) == 0:
+                print("Book title can't be empty.")
+
+            # elif any(temp_title.strip() in temp for temp in Methods.dict_book_details['book_name']):
+            else:
+                print("Book ISBN\tBook name\tAuthor name\tNo. of copies available\n")
+                for i in range(len(Methods.dict_book_details['book_isbn'])):
+                    if temp_title.strip().lower() in (Methods.dict_book_details['book_name'][i]).lower():
+                        count += 1
+                        print(f"{Methods.dict_book_details['book_isbn'][i]}\t{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
+
+            if count == 0:
+                 print(f"There is no book with this name / keyword / on this subject {temp_title} in the library.")
+
+            else:
+                print(f"In all, {count} records were found.")
+
+        except ValueError as v:
+            print("Some problem occurred...")
+            print(v)
+
+        except TypeError as t:
+            print("Some problem occurred...")
+            print(t)
+
+        except IndexError as ie:
+            print("Some problem occurred...")
+            print(ie)
+
+    def searchBookByAuthor(self):
+        temp_author = ""
+        count = 0
+
+        try:
+            temp_author = input(
+                "Enter the book author name whose books are to be searched:\t")
+
+            if len(temp_author.strip()) == 0:
+                print("Book author name can't be empty.")
+
+            else:
+                print("Book ISBN\tBook name\tAuthor name\tNo. of copies available\n")
+            # elif any(temp_author.strip() in temp for temp in Methods.dict_book_details['author_name']):
+                for i in range(len(Methods.dict_book_details['book_isbn'])):
+                    if temp_author.strip().lower() in (Methods.dict_book_details['author_name'][i]).lower():
+                        count += 1
+                        print(
+                            f"{Methods.dict_book_details['book_isbn'][i]}\t{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
+
+            if count == 0:
+                print(f"There are no books of this author {temp_author} in the library.")
+
+            else:
+                print(f"In all, {count} records were found.")
+
+        except ValueError as v:
+            print("Some problem occurred...")
+            print(v)
+
+        except TypeError as t:
+            print("Some problem occurred...")
+            print(t)
+
+        except IndexError as ie:
+            print("Some problem occurred...")
+            print(ie)
+
+    def searchBookByISBN(self):
+        temp_isbn = ""
+        count = 0
+
+        try:
+            temp_isbn = input(
+                "Enter the ISBN of the book to be searched:\t")
+
+            if len(temp_isbn.strip()) == 0:
+                print("Book ISBN can't be empty.")
+
+            else:
+                print("Book ISBN\tBook name\tAuthor name\tNo. of copies available\n")
+                #elif any(temp_isbn.strip() in temp for temp in Methods.dict_book_details['book_isbn']):
+                for i in range(len(Methods.dict_book_details['book_isbn'])):
+                    if temp_isbn.strip().lower() == (Methods.dict_book_details['book_isbn'][i]).lower():
+                        count += 1
+                        print(
+                        f"{Methods.dict_book_details['book_isbn'][i]}\t{Methods.dict_book_details['book_name'][i]}\t{Methods.dict_book_details['author_name'][i]}\t{Methods.dict_book_details['book_qty'][i]}")
+
+            if count == 0:
+                print(f"There are no books with this ISBN {temp_isbn}.")
+            else:
+                print(f"In all, {count} records were found.")
+
+        except ValueError as v:
+            print("Some problem occurred...")
+            print(v)
+
+        except TypeError as t:
+            print("Some problem occurred...")
+            print(t)
+
+        except IndexError as ie:
+            print("Some problem occurred...")
+            print(ie)
+
 
 class Execution:
 
@@ -1167,14 +1344,18 @@ class Execution:
             print("6. to extend a book's issue period")
             print("7. to get the list of all the available books in the library")
             print("8. to get the list of books borrowed by a library member")
-            print(
-                "9. to get the list of all the books that have been borrowed by/lended to any/all of the library members")
+            print("9. to get the list of all the books that have been borrowed by/lended to any/all of the library members")
             print("10. to remove a member from the library membership")
             print("11. to get the list of all the registered library members")
             print("12. to modify/update book details")
             print("13. to modify/update member details (including fine clearance)")
             print("14. to get the list of all the members who have pending fine")
-            print("15. to exit the program")
+            print("15. to search a member by the member id")
+            print("16. to search a member by the name")
+            print("17. to search books by the title name")
+            print("18. to search books by the author name")
+            print("19. to search books by the isbn")
+            print("20. to exit the program")
 
             try:
                 task = int(input("Enter your task:\t"))
@@ -1236,6 +1417,26 @@ class Execution:
                 self.m.membersWithPendingFines()
 
             elif task == 15:
+                self.m.searchMemberById()
+            # search a member by member id
+
+            elif task == 16:
+                self.m.searchMemberByName()
+            # search a member by member name
+
+            elif task == 17:
+                self.m.searchBookByTitle()
+            # search a book by title
+
+            elif task == 18:
+                self.m.searchBookByAuthor()
+            # search a book by author name
+
+            elif task == 19:
+                self.m.searchBookByISBN()
+            # search a book by isbn
+
+            elif task == 20:
                 # to exit the program
                 break
 
@@ -1277,5 +1478,8 @@ update & delete transactions should happen straight from the file/backend itself
 5. Currently, the fine clearance is also defined within the method that deals 
 with updating the member details. However, for this task, i.e. for member fine,
 a separate method can be defined for better ease of operation for the end user.
+
+6. tolower() ensures better matching & offers more user friendly approach to the users.
+it can be incorporated at other places also, if I forgot to do in this program.
 
 """
