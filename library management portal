@@ -1460,6 +1460,10 @@ Dictionary has been used for 2 reasons:
 1. to ensure that the data is well organized.
 2. to ensure like/related details are kept together.
 
+tolower() ensures better matching & offers more user friendly approach to the users while
+searching books, members... it can be incorporated at other places also in the program, if
+I have missed to do so.
+
 Future scope/improvements:
 
 1. The need of file handling: once the program is stopped/exited, the data in the
@@ -1478,8 +1482,5 @@ update & delete transactions should happen straight from the file/backend itself
 5. Currently, the fine clearance is also defined within the method that deals 
 with updating the member details. However, for this task, i.e. for member fine,
 a separate method can be defined for better ease of operation for the end user.
-
-6. tolower() ensures better matching & offers more user friendly approach to the users.
-it can be incorporated at other places also, if I forgot to do in this program.
 
 """
