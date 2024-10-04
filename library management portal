@@ -24,8 +24,11 @@ A library program to perform the following tasks:
 
 Constraints:
 1. A member cannot borrow more than 3 books at once
-2. Suitable fines if book not returned/re - issued within 15 days
-3. Validate data before entering into the record
+2. Validate data before entering into the record
+3. Suitable fines if book not returned/re - issued within 15 days
+    If the delay in returning/re - issuing book ranges from 1 - 10 days, fine of rupees 1 per day will 
+    be charged. From 11th - 20th day, fine of rupees 2 per day will be charged. Later on, fine of 
+    rupees 5 per day will be charged.
 
 Program working:
 
