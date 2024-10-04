@@ -1,8 +1,45 @@
-
 # library management portal using list within dictionaries
 
-from datetime import datetime
+"""
+A library program to perform the following tasks:
+1. Add a member
+2. Remove a member
+3. Add a book
+4. Remove a book
+5. Issue a book
+6. Return a book
+7. Get the list of all the available books in the library
+8. Get the list of all the books borrowed by a member member
+9. Get the list of all the books which have been borrowed by some or the other library member
+10. To modify book details
+11. To modify user/library member details
+12. To get the list of all the member that have pending fines
+13. To search a book by title name
+14. To search a book by author name
+15. To search a book by isbn
+16. To search a member by member id
+17. To search a menber by member name
+18. To extend a book's period
+19. To exit the program
 
+Constraints:
+1. A member cannot borrow more than 3 books at once
+2. Suitable fines if book not returned/re - issued within 15 days
+3. Validate data before entering into the record
+
+Program working:
+
+1. Lend - check whether the member is registered - has he/she taken more than 3 books - not eligible - else
+eligible - check book is present or not - lend - decrease count of book by 1 - add to lend record - vice
+versa for returning book
+
+2. Book to be entered into records - check isbn is unique - quantity is not negative
+
+3. Member to be entered - ensure member id is unique and does not exist in records
+
+"""
+
+from datetime import datetime
 
 class Methods:
     # m = Methods()
