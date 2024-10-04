@@ -1,37 +1,3 @@
-# library management portal using list within dictionaries
-
-"""
-A library program to do the following tasks:
-1. to add a book to the library
-2. to remove a book registered in the library list
-3. to register a member in the libraary
-4. to remove a registered member from the library
-5. to get the list of books which are available to be issued
-6. to get the list of all the books that have been borrowed
-7. to get the list of books that have been borrowed by a registered member
-8. to issue a book
-9. to return a book
-10. to get the list of all the registered member
-11. to update member details
-12. to update book details
-13. to get the list of all the library members who have pending fine & the total pending fine of all
-the library members
-14. to search a member by member id/name
-15. to search a book by title/name/isbn
-16. to exit the program
-
-Constraints:
-1. When a user is being registered/new book is being registered, check the member id/book isbn respectively
-because it should be unique.
-2. When a registered member / book has to be removed, 1st check whether the person/book is registered or
-not because unregistered books/members can't be removed.
-3. When a book has to be issued to the registered member, 1st check whether books borrowed by him are less
-than 3. If yes, check whether the book is available, if yes, then issue the book and decrease the quantity
-in library by 1.
-4. If no. of days for which book has been borrowed crosses 15 days, fine will be imposed. 1 Rupee fine
-per day for 1st 10 days, 2 Rupee fine per day for next 10 days and after that 5 Rupee fine per day later on.
-
-"""
 
 # library management portal using list within dictionaries
 
@@ -1456,14 +1422,6 @@ if __name__ == "__main__":
 
 
 """
-Dictionary has been used for 2 reasons:
-1. to ensure that the data is well organized.
-2. to ensure like/related details are kept together.
-
-tolower() ensures better matching & offers more user friendly approach to the users while
-searching books, members... it can be incorporated at other places also in the program, if
-I have missed to do so.
-
 Future scope/improvements:
 
 1. The need of file handling: once the program is stopped/exited, the data in the
@@ -1482,5 +1440,8 @@ update & delete transactions should happen straight from the file/backend itself
 5. Currently, the fine clearance is also defined within the method that deals 
 with updating the member details. However, for this task, i.e. for member fine,
 a separate method can be defined for better ease of operation for the end user.
+
+6. tolower() ensures better matching & offers more user friendly approach to the users.
+it can be incorporated at other places also, if I forgot to do in this program.
 
 """
