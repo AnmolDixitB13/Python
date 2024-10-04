@@ -38,7 +38,8 @@ versa for returning book
 
 2. Book to be entered into records - check isbn is unique - quantity is not negative
 
-3. Member to be entered - ensure member id is unique and does not exist in records
+3. Member to be entered - ensure member id is unique and ensure that the id does not exist in records
+that are already present.
 
 """
 
