@@ -1482,7 +1482,8 @@ update & delete transactions should happen straight from the file/backend itself
 with updating the member details. However, for this task, i.e. for member fine,
 a separate method can be defined for better ease of operation for the end user.
 
-6. tolower() ensures better matching & offers more user friendly approach to the users.
-it can be incorporated at other places also, if I forgot to do in this program.
+6. tolower() ensures better matching & offers more user friendly approach to the users
+to search records based on names/isbn, without having to worry about the case while searching
+the records. It can be incorporated at other places also, if I forgot to do in this program.
 
 """
