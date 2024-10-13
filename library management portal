@@ -1472,7 +1472,7 @@ mechanisms to store data, before exiting the program.
 2. Or, instead of file handling, one can go for a suitable UI & Backend for this 
 program. The use of backend, by & large eliminates the need of file handling.
 
-3. Try finding better way of data handling i.e. without using dictionaries, if
+3. Try finding better way of data handling i.e. without using dictionaries if
 possible.
 
 4. try eliminating the use of dictionary/list if possible, i.e. read, write, 
@@ -1485,5 +1485,20 @@ a separate method can be defined for better ease of operation for the end user.
 6. tolower() ensures better matching & offers more user friendly approach to the users
 to search records based on names/isbn, without having to worry about the case while searching
 the records. It can be incorporated at other places also, if I forgot to do in this program.
+
+7. Storing history / old transactions will be easier if a backend like SQL is used. With SQL,
+one can make 4 data tables:
+i. to store details of the books
+ii. to store details of the library members
+iii. to store records of books that have been issued to the library members
+iv. to store old records i.e., once an issued book has been returned back to library, the 
+issuing details / issuing record of this book should be moved from table mentioned in point 
+' iii ' to the table mentioned in this point, point ' iv '. This will act as the history of 
+all the issuings of the library books.
+
+8. When the book issue period of an issued book is about to expire, about 2 - 3 days before
+this, an email reminder can be sent to the member's email id reminding him/her that he/she
+has to either return the book or get it re - issued. I suppose again, even for this task, a 
+backend like SQL is required.
 
 """
