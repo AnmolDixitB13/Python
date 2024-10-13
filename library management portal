@@ -1487,14 +1487,15 @@ to search records based on names/isbn, without having to worry about the case wh
 the records. It can be incorporated at other places also, if I forgot to do in this program.
 
 7. Storing history / old transactions will be easier if a backend like SQL is used. With SQL,
-one can make 4 data tables:
-i. to store details of the books
-ii. to store details of the library members
-iii. to store records of books that have been issued to the library members
-iv. to store old records i.e., once an issued book has been returned back to library, the 
-issuing details / issuing record of this book should be moved from table mentioned in point 
-' iii ' to the table mentioned in this point, point ' iv '. This will act as the history of 
-all the issuings of the library books.
+one can make 4 data tables, 1 for each of the below mentioned tasks:
+i. Book record: to store details of the books present / listed in library 
+ii. Member record: to store details of the library members
+iii. Books currently issued: to store records of books that have been issued to the library 
+members
+iv. Book issue history: to store old records i.e., once an issued book has been returned back 
+to library, the issuing details / issuing record of this book should be moved from table
+mentioned in point ' iii ' to the table mentioned in this point, point ' iv '. This will act 
+as the history of all the issuings of the library books.
 
 8. When the book issue period of an issued book is about to expire, about 2 - 3 days before
 this, an email reminder can be sent to the member's email id reminding him/her that he/she
